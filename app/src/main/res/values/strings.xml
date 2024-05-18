@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AntiTheft</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pocket_removal_detection">Pocket Removal Detection</string>
+    <string name="charger_removal_detection">Charger Removal Detection</string>
+    <string name="motion_detection">Motion Detection</string>
+</resources>

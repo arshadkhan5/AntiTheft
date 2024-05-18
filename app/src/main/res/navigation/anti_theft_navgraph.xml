@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/anti_theft_navgraph"
+    app:startDestination="@id/dashBoard">
+
+    <fragment
+        android:id="@+id/dashBoard"
+        android:name="com.example.antitheft.view.DashBoard"
+        android:label="fragment_dash_board"
+        tools:layout="@layout/fragment_dash_board" />
+</navigation>
