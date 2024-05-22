@@ -3,6 +3,7 @@ package com.example.antitheft.services
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
@@ -25,19 +26,23 @@ class MotionDetectionService : Service(), SensorEventListener {
     private lateinit var sensorManager: SensorManager
     private lateinit var accelerometer: Sensor
     private lateinit var mediaPlayer: MediaPlayer
-    private lateinit var ringtone: Ringtone
 
-    @SuppressLint("ForegroundServiceType")
     override fun onCreate() {
         super.onCreate()
-        Log.e("myTag", "PocketRemovalService  ", )
         createNotificationChannel()
+
+        val stopIntent = Intent(this, MotionDetectionService::class.java).apply {
+            action = ACTION_STOP
+        }
+        val stopPendingIntent: PendingIntent = PendingIntent.getService(this, 0, stopIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Motion Detection Service")
-            .setContentText("Service is running...")
+            .setContentText("Motion Detection Service is running...")
             .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .addAction(R.drawable.stop, "Stop", stopPendingIntent)
             .build()
-        startForeground(1, notification)
+        startForeground(FOREGROUND_SERVICE_ID, notification)
 
         mediaPlayer = MediaPlayer.create(this, RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE))
 
@@ -45,12 +50,13 @@ class MotionDetectionService : Service(), SensorEventListener {
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)!!
         sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL)
 
-        val uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
-        ringtone = RingtoneManager.getRingtone(applicationContext, uri)
         Log.d("MotionDetectionService", "Service started")
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        if (intent?.action == ACTION_STOP) {
+            stopSelf()
+        }
         return START_STICKY
     }
 
@@ -75,7 +81,6 @@ class MotionDetectionService : Service(), SensorEventListener {
             val gForce = kotlin.math.sqrt(gX * gX + gY * gY + gZ * gZ)
 
             if (gForce > 2.5) { // Shake detected
-
                 if (!mediaPlayer.isPlaying) {
                     mediaPlayer.start()
                 }
@@ -83,8 +88,7 @@ class MotionDetectionService : Service(), SensorEventListener {
         }
     }
 
-    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-    }
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -102,11 +106,9 @@ class MotionDetectionService : Service(), SensorEventListener {
         }
     }
 
-
-
     companion object {
         const val CHANNEL_ID = "MotionDetectionServiceChannel"
+        const val FOREGROUND_SERVICE_ID = 1
+        const val ACTION_STOP = "com.example.motiondetectionservice.ACTION_STOP"
     }
-
-
 }

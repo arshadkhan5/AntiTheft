@@ -5,4 +5,6 @@
     <string name="pocket_removal_detection">Pocket Removal Detection</string>
     <string name="charger_removal_detection">Charger Removal Detection</string>
     <string name="motion_detection">Motion Detection</string>
+    <string name="charger_removal_service">Charger Removal Service</string>
+    <string name="motion_detection_service">Motion Detection Service</string>
 </resources>

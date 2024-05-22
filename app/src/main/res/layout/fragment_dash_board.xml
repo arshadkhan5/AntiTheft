@@ -4,49 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.DashBoard">
+    tools:context=".view.DashBoard"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="-264dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
         android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:padding="16dp">
 
-        <Button
-            android:id="@+id/buttonPocketRemoval"
+        <Switch
+            android:id="@+id/switchPocketRemoval"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/pocket_removal_detection"
-            app:layout_constraintBottom_toTopOf="@+id/buttonChargerRemoval"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            tools:layout_editor_absoluteX="16dp" />
+            android:text="Pocket Removal Service" />
+
+        <TextView
+            android:id="@+id/textPocketRemovalStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status: Not Running" />
 
         <Button
-            android:id="@+id/buttonChargerRemoval"
+            android:id="@+id/buttonStopPocketRemoval"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stop Pocket Removal Service"
+            android:visibility="gone" />
+
+        <Switch
+            android:id="@+id/switchChargerRemoval"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/charger_removal_detection"
-            app:layout_constraintBottom_toTopOf="@+id/buttonMotionDetection"
-            app:layout_constraintTop_toBottomOf="@+id/buttonPocketRemoval"
-            tools:layout_editor_absoluteX="16dp" />
+            android:text="Charger Removal Service" />
+
+        <TextView
+            android:id="@+id/textChargerRemovalStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status: Not Running" />
 
         <Button
-            android:id="@+id/buttonMotionDetection"
+            android:id="@+id/buttonStopChargerRemoval"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stop Charger Removal Service"
+            android:visibility="gone" />
+
+        <Switch
+            android:id="@+id/switchMotionDetection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/motion_detection"
-            android:layout_marginTop="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/buttonChargerRemoval"
-            tools:layout_editor_absoluteX="16dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:text="Motion Detection Service" />
 
+        <TextView
+            android:id="@+id/textMotionDetectionStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status: Not Running" />
+
+        <Button
+            android:id="@+id/buttonStopMotionDetection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stop Motion Detection Service"
+            android:visibility="gone" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
